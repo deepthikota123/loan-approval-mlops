@@ -13,13 +13,31 @@ TARGET_COL = 'Loan_Status'
 def fill_missing(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
-    # Categorical: fill with mode
-    for col in ['Gender', 'Married', 'Dependents', 'Self_Employed', 'Credit_History']:
-        df[col] = df[col].fillna(df[col].mode()[0])
+    # Categorical: fill with mode (fallback to a safe default if mode is empty,
+    # e.g. when the whole column is NaN)
+    categorical_defaults = {
+        'Gender': 'Male',
+        'Married': 'No',
+        'Dependents': '0',
+        'Self_Employed': 'No',
+        'Credit_History': 1.0,
+    }
+    for col, default in categorical_defaults.items():
+        mode_vals = df[col].mode()
+        fill_value = mode_vals[0] if not mode_vals.empty else default
+        df[col] = df[col].fillna(fill_value)
 
-    # Numeric: fill with median
-    df['LoanAmount'] = df['LoanAmount'].fillna(df['LoanAmount'].median())
-    df['Loan_Amount_Term'] = df['Loan_Amount_Term'].fillna(df['Loan_Amount_Term'].median())
+    # Numeric: fill with median (fallback to a safe default if median is NaN,
+    # e.g. when the whole column is NaN)
+    loan_amount_median = df['LoanAmount'].median()
+    df['LoanAmount'] = df['LoanAmount'].fillna(
+        loan_amount_median if pd.notna(loan_amount_median) else 120.0
+    )
+
+    term_median = df['Loan_Amount_Term'].median()
+    df['Loan_Amount_Term'] = df['Loan_Amount_Term'].fillna(
+        term_median if pd.notna(term_median) else 360.0
+    )
 
     return df
 
