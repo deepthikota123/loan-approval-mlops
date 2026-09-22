@@ -32,6 +32,10 @@ stages:
       hash: md5
       md5: 5b8d875308bd50c13492fb1e082762a9
       size: 37488
+    - path: models/encoders.pkl
+      hash: md5
+      md5: 58c4490d2a99462ab1d23761606549ff
+      size: 1706
   train:
     cmd: python src/training/train.py
     deps:

@@ -14,6 +14,7 @@ stages:
       - src/transformation/transform.py
     outs:
       - data/processed/features.csv
+      - models/encoders.pkl
 
   train:
     cmd: python src/training/train.py
