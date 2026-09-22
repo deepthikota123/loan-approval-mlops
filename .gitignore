@@ -7,5 +7,6 @@ htmlcov/
 mlruns/
 mlflow.db
 data/raw/*.csv
+!data/raw/loan_data.csv
 data/processed/*.csv
 mlflow.db
