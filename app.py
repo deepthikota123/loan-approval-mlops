@@ -40,7 +40,7 @@ def health():
 @app.post("/predict")
 def predict(application: LoanApplication):
     try:
-        data = application.dict()
+        data = application.model_dump()
         data["Loan_ID"] = "TEMP"  # placeholder, dropped during transform
         df = pd.DataFrame([data])
 
