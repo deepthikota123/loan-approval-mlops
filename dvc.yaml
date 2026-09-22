@@ -1,0 +1,27 @@
+stages:
+  validate:
+    cmd: python src/validation/validate.py
+    deps:
+      - data/raw/loan_data.csv
+      - src/validation/validate.py
+    outs:
+      - data/processed/validated.csv
+
+  transform:
+    cmd: python src/transformation/transform.py
+    deps:
+      - data/processed/validated.csv
+      - src/transformation/transform.py
+    outs:
+      - data/processed/features.csv
+
+  train:
+    cmd: python src/training/train.py
+    deps:
+      - data/processed/features.csv
+      - src/training/train.py
+    outs:
+      - models/model.pkl
+    metrics:
+      - metrics.json:
+          cache: false
