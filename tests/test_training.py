@@ -38,7 +38,7 @@ def test_load_data_splits_correctly(tmp_path):
 def test_train_and_log_returns_best_model(tmp_path, monkeypatch):
     mlflow_dir = tmp_path / "mlruns"
     monkeypatch.chdir(tmp_path)
-    mlflow.set_tracking_uri(f"sqlite:///{tmp_path / 'mlflow_test.db'}")
+    mlflow.set_tracking_uri(f"sqlite:///{tmp_path / 'mlflow_test.db'}") 
     df = _make_synthetic_features(60)
     X = df.drop(columns=[TARGET_COL])
     y = df[TARGET_COL]

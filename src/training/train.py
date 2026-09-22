@@ -22,6 +22,7 @@ def load_data(path="data/processed/features.csv"):
 
 
 def train_and_log(X_train, X_test, y_train, y_test):
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
     mlflow.set_experiment("loan-approval-prediction")
 
     models = {
