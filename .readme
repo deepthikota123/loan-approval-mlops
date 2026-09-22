@@ -1,0 +1,14 @@
+# Loan Approval MLOps Pipeline
+
+## System Architecture
+This repository implements an end-to-end MLOps pipeline for loan approval prediction:
+- **DVC**: Tracks data versioning and pipeline execution (`dvc.yaml`).
+- **MLflow**: Tracks experiment parameters, metrics, and model artifacts.
+- **FastAPI**: Exposes model inference via REST endpoints (`/predict`).
+- **Docker**: Containers package the application runtime.
+- **GitHub Actions**: Automated CI/CD for unit testing and pushing Docker images to Docker Hub.
+
+## Quick Start (Local Run)
+```bash
+docker pull deepthikota12/loan-approval-api:latest
+docker run -d -p 8000:8000 --name loan-app deepthikota12/loan-approval-api:latest
